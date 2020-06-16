@@ -3,18 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="duly-notes.css">
-  <title>Duly Noted</title>
+  <title>Duly Noted!</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+  integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="duly-notes.css">
 </head>
 <body>
   <div class='header'>
-    <img class='logo' src='./assets/logo_size.jpg' >
+    <img src='./assets/logo_size.jpg' alt="logo" class='logo' />
+    <h1>Duly Noted</h1>
+    <div id="buttons-container">
+      <button type="button" class="btn btn-outline-info" id="signout-btn">SIGN-OUT</button>
+      <button type="button" class="btn btn-outline-info" id="note-btn">NEW NOTE</button>
+      <button type="button" class="btn btn-outline-info" id="calendar-btn">CALENDAR</button>
+    </div>
   </div>
-  <div class='form-container'>
+  <div class ='form-container'>
     <div class='notes-container'>
 
     </div>
   </div>
+
+  <div id='calendar-container'>
+    <!-- calendar goes here -->
+  </div>
+
   <script src='index.js'></script>
 </body>
 </html>
