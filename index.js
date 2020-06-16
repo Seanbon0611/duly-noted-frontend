@@ -175,3 +175,80 @@ function renderCalendarAfterClicked() {
     });
 }
 
+//1.render sign-in form
+//2.render sign-up form
+//3.render new note
+//4.render calendar
+
+let isSignedIn = true
+
+window.SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+homePage()
+function homePage() {
+  const formContainer = document.querySelector('.form-container')
+  if (isSignedIn === false) {
+    formContainer.innerHTML = renderSignIn();
+    listenForSignInSubmit()
+  } else if (isSignedIn === true) {
+    renderNewNote()
+  }
+}
+//1.sign-in form
+function renderSignIn() {
+  return `
+    <form>
+    <h1>SIGN IN</h1>
+    <input type='text' placeholder="Enter Username">
+    <input type='text' placeholder="Enter Email">
+    <input type="submit">
+    <p>Not registered? Sign-up <a href='https://google.com'>here</a></p>
+    </form>
+  `
+}
+
+function listenForSignInSubmit() {
+  const formContainer = document.querySelector('.form-container')
+  formContainer.addEventListener('submit', (event) => {
+    event.preventDefault()
+    console.log(event)
+  })
+}
+//2.sign-up form
+function renderSignUp() {
+  return `
+  <form>
+  <h1>SIGN UP</h1>
+  <input type='text' placeholder="Enter Username">
+  <input type='text' placeholder="Enter Email">
+  <input type="submit">
+  <p>Already registered? Sign-in <a href='https://google.com'>here</a></p>
+</form>
+  `
+}
+
+//3.render new note
+function renderNewNote() {
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+
+  let p = document.createElement('p');
+  const formContainer = document.querySelector('.notes-container');
+  formContainer.appendChild(p);
+
+  recognition.addEventListener('result', (e) => {
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join("")
+
+      p.textContent = transcript
+      if(e.results[0].isFinal) {
+        p = document.createElement('p');
+        formContainer.appendChild(p)
+      }
+    console.log(transcript)
+  });
+  recognition.addEventListener('end', recognition.start)
+  recognition.start();
+}
+

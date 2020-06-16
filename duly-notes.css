@@ -1,11 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+.logo {
+  height: 200px;
+  width: 200px;;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.notes-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 500px;
+  height: 50%;
+  border: 1px solid black;
+  box-shadow: 5px 2px 2px grey;
+}
 html {
     display: table;
     margin: auto;
 }
 
 body {
-    display: table-cell;
-    vertical-align: middle;
+  padding: 20px 60px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #buttons-container {  
