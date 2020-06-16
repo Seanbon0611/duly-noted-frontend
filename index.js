@@ -179,7 +179,6 @@ function renderCalendarAfterClicked() {
 //2.render sign-up form
 //3.render new note
 //4.render calendar
-//5.render 
 
 let isSignedIn = true
 
@@ -194,7 +193,7 @@ function homePage() {
     renderNewNote()
   }
 }
-
+//1.sign-in form
 function renderSignIn() {
   return `
     <form>
@@ -214,7 +213,7 @@ function listenForSignInSubmit() {
     console.log(event)
   })
 }
-
+//2.sign-up form
 function renderSignUp() {
   return `
   <form>
@@ -227,7 +226,7 @@ function renderSignUp() {
   `
 }
 
-
+//3.render new note
 function renderNewNote() {
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
