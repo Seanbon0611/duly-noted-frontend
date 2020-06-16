@@ -11,76 +11,54 @@
 
 </head>
 <body>
-<div class="container col-sm-4 col-md-7 col-lg-4 mt-5">
-    <div class="card">
-        <h3 class="card-header" id="monthAndYear"></h3>
-        <table class="table table-bordered table-responsive-sm" id="calendar">
-            <thead>
-            <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-            </tr>
-            </thead>
-
-            <tbody id="calendar-body">
-
-            </tbody>
-        </table>
-
-        <div class="form-inline">
-
-            <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Previous</button>
-
-            <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Next</button>
-        </div>
-
-        <br/>
-        <form class="form-inline">
-            <select class="form-control col-sm-6" name="month" id="month" onchange="jump()">
-                <option value=0>January</option>
-                <option value=1>February</option>
-                <option value=2>March</option>
-                <option value=3>April</option>
-                <option value=4>May</option>
-                <option value=5>June</option>
-                <option value=6>July</option>
-                <option value=7>August</option>
-                <option value=8>September</option>
-                <option value=9>October</option>
-                <option value=10>November</option>
-                <option value=11>December</option>
-            </select>
-
-
-            <select class="form-control col-sm-6" name="year" id="year" onchange="jump()">
-            <option value=2020>2020</option>
-            <option value=2021>2021</option>
-            <option value=2022>2022</option>
-            <option value=2023>2023</option>
-            <option value=2024>2024</option>
-            <option value=2025>2025</option>
-        </select></form>
+  <!-- CALENDAR -->
+  <div id='calendar-container' style="display: none;">
+    <div class="card" id="card">
+      <h4 class="card-header" id="monthAndYear"></h4>
+      <table class="table table-bordered table-responsive-sm" id="calendar">
+        <thead id="calendar-header">
+          <!-- calendar header -->
+        </thead>
+        <tbody id="calendar-body">
+          <!-- calendar body -->
+        </tbody>
+      </table>
+      <div class="form-inline" id="p-n-btn">
+        <button class="btn btn-outline-primary col-sm-6" id="previous"> << </button>
+        <button class="btn btn-outline-primary col-sm-6" id="next"> >> </button>
+      </div>
+      <br/>
+      <form class="form-inline" id="drop-down">
+        <select class="form-control col-sm-6" name="month" id="month">
+          <!-- month dropdown -->
+          <option value=0>January</option>
+          <option value=1>February</option>
+          <option value=2>March</option>
+          <option value=3>April</option>
+          <option value=4>May</option>
+          <option value=5>June</option>
+          <option value=6>July</option>
+          <option value=7>August</option>
+          <option value=8>September</option>
+          <option value=9>October</option>
+          <option value=10>November</option>
+          <option value=11>December</option>
+        </select>
+        <select class="form-control col-sm-6" name="year" id="year">
+          <!-- year dropdown -->
+          <option value=2020>2020</option>
+          <option value=2021>2021</option>
+          <option value=2022>2022</option>
+          <option value=2023>2023</option>
+          <option value=2024>2024</option>
+          <option value=2025>2025</option>
+        </select>
+      </form>
     </div>
-</div>
-<!--<button name="jump" onclick="jump()">Go</button>-->
-<script src="calendar.js"></script>
+  </div>
+  <!-- END CALENDAR -->
 
-<!-- Optional JavaScript for bootstrap -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+<script src="calendar.js"></script>
         
 </body>
 </html>

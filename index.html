@@ -27,9 +27,52 @@
     </div>
   </div>
 
-  <div id='calendar-container'>
-    <!-- calendar goes here -->
+  <!-- CALENDAR -->
+  <div id='calendar-container' style="display: none;">
+    <div class="card" id="card">
+      <h4 class="card-header" id="monthAndYear"></h4>
+      <table class="table table-bordered table-responsive-sm" id="calendar">
+        <thead id="calendar-header">
+          <!-- calendar header -->
+        </thead>
+        <tbody id="calendar-body">
+          <!-- calendar body -->
+        </tbody>
+      </table>
+      <div class="form-inline" id="p-n-btn">
+        <button class="btn btn-outline-primary col-sm-6" id="previous"> << </button>
+        <button class="btn btn-outline-primary col-sm-6" id="next"> >> </button>
+      </div>
+      <br/>
+      <form class="form-inline" id="drop-down">
+        <select class="form-control col-sm-6" name="month" id="month">
+          <!-- month dropdown -->
+          <option value=0>January</option>
+          <option value=1>February</option>
+          <option value=2>March</option>
+          <option value=3>April</option>
+          <option value=4>May</option>
+          <option value=5>June</option>
+          <option value=6>July</option>
+          <option value=7>August</option>
+          <option value=8>September</option>
+          <option value=9>October</option>
+          <option value=10>November</option>
+          <option value=11>December</option>
+        </select>
+        <select class="form-control col-sm-6" name="year" id="year">
+          <!-- year dropdown -->
+          <option value=2020>2020</option>
+          <option value=2021>2021</option>
+          <option value=2022>2022</option>
+          <option value=2023>2023</option>
+          <option value=2024>2024</option>
+          <option value=2025>2025</option>
+        </select>
+      </form>
+    </div>
   </div>
+  <!-- END CALENDAR -->
 
   <script src='index.js'></script>
 </body>
