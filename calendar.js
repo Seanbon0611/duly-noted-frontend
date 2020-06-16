@@ -1,81 +1,145 @@
-let today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
-let selectYear = document.getElementById("year");
-let selectMonth = document.getElementById("month");
+let today;
+let currentMonth;
+let currentYear;
+let days;
+let months;
+let years;
 
-let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let tbodyTag;
+let calendarTitle;
+let yearsSelections;
+let monthsSelections;
 
-let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
+document.addEventListener("DOMContentLoaded", function() {
+    today = new Date();
+    currentMonth = today.getMonth();
+    currentYear = today.getFullYear();
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    years = ["2020", "2021", "2022", "2023", "2024", "2025"]
 
+    // grab calendar body 
+    tbodyTag = document.getElementById("calendar-body");
+    // grab title (month - year)
+    calendarTitle = document.getElementById("monthAndYear");
+    // grab dropdown years
+    yearsSelections = document.getElementById("year");
+    // grab dropdown month
+    monthsSelections = document.getElementById("month");
 
-function next() {
-    currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth, currentYear);
+    renderCalendarAfterClicked();
+    displayCalendar(currentMonth, currentYear);
+    previousButtonClickListener();
+    nextButtonClickListener();
+    dropDownListener();
+})
+
+function renderCalendarAfterClicked() {
+    const calendarButton = document.getElementById("calendar-btn");
+    calendarButton.addEventListener("click", function(event) {
+        // once clicked disable the button
+        event.target.disabled = true;
+        // grab calendar div
+        const calendarDiv = document.getElementById('calendar-container');
+        calendarDiv.style.display = "block";
+        // garb calendar card
+        const calendarCard = document.getElementById("card");
+        // grab title (month - year)
+        // const calendarTitle = document.getElementById("monthAndYear");
+        // grab calendar table
+        const calendarTable = document.getElementById("calendar");
+        // grab calendar header
+        const theadTag = document.getElementById("calendar-header");
+        //// add days to header ---------------- TO DO: MAKE LOOP ----------------- ////
+        const trTag = document.createElement("tr");
+        theadTag.append(trTag);
+        const thTag1 = document.createElement("th");
+        thTag1.innerText = days[0];
+        const thTag2 = document.createElement("th");
+        thTag2.innerText = days[1];
+        const thTag3 = document.createElement("th");
+        thTag3.innerText = days[2];
+        const thTag4 = document.createElement("th");
+        thTag4.innerText = days[3];
+        const thTag5 = document.createElement("th");
+        thTag5.innerText = days[4];
+        const thTag6 = document.createElement("th");
+        thTag6.innerText = days[5];
+        const thTag7 = document.createElement("th");
+        thTag7.innerText = days[6];
+        trTag.append(thTag1, thTag2,thTag3, thTag4, thTag5, thTag6, thTag7);
+    });
 }
 
-function previous() {
-    currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-    currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
-}
-
-function jump() {
-    currentYear = parseInt(selectYear.value);
-    currentMonth = parseInt(selectMonth.value);
-    showCalendar(currentMonth, currentYear);
-}
-
-function showCalendar(month, year) {
-
-    let firstDay = (new Date(year, month)).getDay();
-    let daysInMonth = 32 - new Date(year, month, 32).getDate();
-
-    let tbl = document.getElementById("calendar-body"); // body of the calendar
-
-    // clearing all previous cells
-    tbl.innerHTML = "";
-
-    // filing data about month and in the page via DOM.
-    monthAndYear.innerHTML = months[month] + " " + year;
-    selectYear.value = year;
-    selectMonth.value = month;
-
-    // creating all cells
+function displayCalendar(month, year) {
+    //// DISPLAYING CALENDAR BODY ////
+    const firstDay = (new Date(year, month)).getDay();
+    const daysInMonth = 32 - new Date(year, month, 32).getDate(); 
+    // clearing body
+    tbodyTag.innerHTML = "";   
+    // assign month - year to calendar title
+    calendarTitle.innerText = months[month] + " " + year;
+    yearsSelections.value = year;
+    monthsSelections.value = month;
+    // generating dates
     let date = 1;
-    for (let i = 0; i < 6; i++) {
-        // creates a table row
-        let row = document.createElement("tr");
-
-        //creating individual cells, filing them up with data.
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < firstDay) {
+    for (let counter = 0; counter < 6; counter++) {
+        let calendarBodyRow = document.createElement("tr");
+        // filling calendar with dates
+        for (let i = 0; i < 7; i++) {
+            if (counter === 0 && i < firstDay) {
+                // adding cell
                 let cell = document.createElement("td");
                 let cellText = document.createTextNode("");
                 cell.appendChild(cellText);
-                row.appendChild(cell);
-            }
-            else if (date > daysInMonth) {
+                calendarBodyRow.appendChild(cell);
+            } else if (date > daysInMonth) {
                 break;
-            }
-
-            else {
+            } else {
                 let cell = document.createElement("td");
                 let cellText = document.createTextNode(date);
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                    // color today's date
                     cell.classList.add("bg-info");
-                } // color today's date
+                } 
                 cell.appendChild(cellText);
-                row.appendChild(cell);
+                calendarBodyRow.appendChild(cell);
                 date++;
-            }
-
-
+            }      
         }
-
-        tbl.appendChild(row); // appending each row into calendar body.
+        // add each row to calendar body.
+        tbodyTag.appendChild(calendarBodyRow);
     }
+}
 
+function previousButtonClickListener() {
+    // grab previous button
+    const previousButton = document.getElementById("previous");
+    previousButton.addEventListener("click", function() {
+        currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+        currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+        displayCalendar(currentMonth, currentYear);
+    })
+}
+
+function nextButtonClickListener() {
+    // grab next button
+    const nextButton = document.getElementById("next");
+    nextButton.addEventListener("click", function() {
+        currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+        currentMonth = (currentMonth + 1) % 12;
+        displayCalendar(currentMonth, currentYear);
+    })
+}
+
+function dropDownListener() {
+    // grab dropdown
+    const dropDownForm = document.getElementById("drop-down");
+    dropDownForm.addEventListener("change", function() {
+        currentYear = parseInt(yearsSelections.value);
+        console.log(currentYear)
+        currentMonth = parseInt(monthsSelections.value);
+        console.log(currentMonth + 1)
+        displayCalendar(currentMonth, currentYear);
+    })
 }
