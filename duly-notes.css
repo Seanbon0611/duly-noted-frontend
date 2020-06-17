@@ -61,8 +61,14 @@ body {
 .signup {
   color: blue;
 }
+.signup:hover {
+  cursor: pointer;
+}
 
 .signin {
   color: blue;
 }
 
+.signin:hover {
+  cursor: pointer;
+}

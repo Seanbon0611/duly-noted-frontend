@@ -51,13 +51,21 @@ function renderhomePage() {
 </div>
 `
 signOut()
-renderNewNote()
 renderCalendarAfterClicked();
 displayCalendar(currentMonth, currentYear);
 previousButtonClickListener();
 nextButtonClickListener();
 dropDownListener();
+listenToNewNoteClick()
 }
+
+function listenToNewNoteClick() {
+  const newNoteBtn = document.querySelector('#note-btn')
+  newNoteBtn.addEventListener('click', (e) => {
+    renderNewNote()
+  })
+}
+
 
 function renderNewNote() {
   const recognition = new SpeechRecognition();
@@ -82,6 +90,10 @@ function renderNewNote() {
   });
   recognition.addEventListener('end', recognition.start)
   recognition.start();
+  
+  let saveBtn = document.createElement('button');
+  saveBtn.setAttribute("class", "btn btn-outline-info")
+
 }
 
 
@@ -93,7 +105,7 @@ function renderSignIn() {
     <h1>SIGN IN</h1>
     <input type='text' placeholder="Enter Username" name='usernameInput'>
     <input type='text' placeholder="Enter Email" name='emailInput'>
-    <input type="submit">
+    <input class='btn btn-outline-info'type="submit">
     <p>Not registered? Sign-up <span class='signup'>here</span></p>
     </form>
   `
