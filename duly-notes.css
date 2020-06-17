@@ -62,7 +62,23 @@ body {
   color: blue;
 }
 
-.signin {
-  color: blue;
+
+#monthAndYear {
+    color: rgb(51, 155, 148);
 }
 
+#calendar-header {
+    color: rgb(100, 112, 124)
+}
+
+#calendar-body {
+    background-color: rgb(252, 247, 244);
+
+.signin {
+  color: blue;
+
+}
+
+#listening {
+    color: SteelBlue;
+}
