@@ -127,4 +127,3 @@ function dropDownListener() {
         displayCalendar(currentMonth, currentYear);
     })
 }
-

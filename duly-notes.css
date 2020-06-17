@@ -1,16 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+
+/* .logo-container {
+  height: 100%;
+  width: 10px;
+} */
+.logo {
+  height: 200px;
+  width: 200px;
+  margin-bottom: -35px;
+}
+
+
+.header {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.options {
+  width: 53%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+/* .form-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.notes-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 500px;
+  height: 50%;
+  border: 1px solid black;
+  box-shadow: 5px 2px 2px grey;
+}
 html {
     display: table;
     margin: auto;
-}
+} */
 
 body {
-    display: table-cell;
-    vertical-align: middle;
+  font-family: 'Nunito Sans', sans-serif;
+  padding: 20px 60px;
+  text-align: center;
+  position:relative ;
+  margin-bottom:100px;
 }
 
-#buttons-container {  
-
+.signup {
+  color: blue;
 }
+
 
 #monthAndYear {
     color: rgb(51, 155, 148);
@@ -22,6 +73,10 @@ body {
 
 #calendar-body {
     background-color: rgb(252, 247, 244);
+
+.signin {
+  color: blue;
+
 }
 
 #listening {
