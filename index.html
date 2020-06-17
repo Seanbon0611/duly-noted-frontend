@@ -23,20 +23,29 @@
   </div>
 
   <!-- CALENDAR -->
+  <br>
   <div id='calendar-container' style="display: none;">
     <div class="card" id="card">
       <h4 class="card-header" id="monthAndYear"></h4>
       <table class="table table-bordered table-responsive-sm" id="calendar">
         <thead id="calendar-header">
-          <!-- calendar header -->
+          <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
         </thead>
         <tbody id="calendar-body">
           <!-- calendar body -->
         </tbody>
       </table>
       <div class="form-inline" id="p-n-btn">
-        <button class="btn btn-outline-primary col-sm-6" id="previous"> << </button>
-        <button class="btn btn-outline-primary col-sm-6" id="next"> >> </button>
+        <button class="btn btn-outline-info col-sm-6" id="previous"> << </button>
+        <button class="btn btn-outline-info col-sm-6" id="next"> >> </button>
       </div>
       <br/>
       <form class="form-inline" id="drop-down">
@@ -68,6 +77,18 @@
     </div>
   </div>
   <!-- END CALENDAR -->
+
+  <!-- NEW NOTE -->
+  <div id="new-note" style="display: none;">
+    <h4>💬</h4>
+    <p id="listening">We are listening</p>
+    <form id="note-form">
+      <textarea name="message" rows="12" cols="50"></textarea>
+      <br>
+      <input id="submit" type="submit" class="btn btn-outline-info">
+    </form>
+  </div>
+  <!-- END NEW NOTE -->  
 
   <script src='index.js'></script>
 </body>

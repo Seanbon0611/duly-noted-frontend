@@ -1,14 +1,4 @@
-let today;
-let currentMonth;
-let currentYear;
-let days;
-let months;
-let years;
-
-let tbodyTag;
-let calendarTitle;
-let yearsSelections;
-let monthsSelections;
+let today, currentMonth, currentYear, days, months, years, tbodyTag, calendarTitle, yearsSelections, monthsSelections;
 
 document.addEventListener("DOMContentLoaded", function() {
     today = new Date();
@@ -42,15 +32,9 @@ function renderCalendarAfterClicked() {
         // grab calendar div
         const calendarDiv = document.getElementById('calendar-container');
         calendarDiv.style.display = "block";
-        // garb calendar card
-        const calendarCard = document.getElementById("card");
-        // grab title (month - year)
-        // const calendarTitle = document.getElementById("monthAndYear");
-        // grab calendar table
-        const calendarTable = document.getElementById("calendar");
         // grab calendar header
         const theadTag = document.getElementById("calendar-header");
-        //// add days to header ---------------- TO DO: MAKE LOOP ----------------- ////
+        //// add days to header
         const trTag = document.createElement("tr");
         theadTag.append(trTag);
         const thTag1 = document.createElement("th");
@@ -99,7 +83,7 @@ function displayCalendar(month, year) {
                 let cell = document.createElement("td");
                 let cellText = document.createTextNode(date);
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                    // color today's date
+                    // color today date
                     cell.classList.add("bg-info");
                 } 
                 cell.appendChild(cellText);
@@ -107,7 +91,7 @@ function displayCalendar(month, year) {
                 date++;
             }      
         }
-        // add each row to calendar body.
+        // add each row to calendar body
         tbodyTag.appendChild(calendarBodyRow);
     }
 }
@@ -143,3 +127,4 @@ function dropDownListener() {
         displayCalendar(currentMonth, currentYear);
     })
 }
+
