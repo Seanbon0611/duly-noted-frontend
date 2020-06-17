@@ -65,10 +65,26 @@ body {
   cursor: pointer;
 }
 
+
+#monthAndYear {
+    color: rgb(51, 155, 148);
+}
+
+#calendar-header {
+    color: rgb(100, 112, 124)
+}
+
+#calendar-body {
+    background-color: rgb(252, 247, 244);
+
 .signin {
   color: blue;
+
 }
 
 .signin:hover {
   cursor: pointer;
+}
+#listening {
+    color: SteelBlue;
 }

@@ -1,33 +1,30 @@
-let days;
-let months;
-let years;
 
-let tbodyTag;
-let calendarTitle;
-let yearsSelections;
-let monthsSelections;
+const usersURL = "http://localhost:3000/api/v1/users";
+const notesURL = "http://localhost:3000/api/v1/notes";
 
+const today = new Date();
+const currentMonth = today.getMonth();
+const currentYear = today.getFullYear();
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+const years = ["2020", "2021", "2022", "2023", "2024", "2025"]
 
-today = new Date();
-currentMonth = today.getMonth();
-currentYear = today.getFullYear();
-months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-years = ["2020", "2021", "2022", "2023", "2024", "2025"]
-
+// grab calendar div
+const calendarDiv = document.getElementById('calendar-container');
+// grab calendar button
+const calendarButton = document.getElementById("calendar-btn");
 // grab calendar body 
-tbodyTag = document.getElementById("calendar-body");
+const tbodyTag = document.getElementById("calendar-body");
 // grab title (month - year)
-calendarTitle = document.getElementById("monthAndYear");
+const calendarTitle = document.getElementById("monthAndYear");
 // grab dropdown years
-yearsSelections = document.getElementById("year");
+const yearsSelections = document.getElementById("year");
 // grab dropdown month
-monthsSelections = document.getElementById("month");
-
-
-
-
-
+const monthsSelections = document.getElementById("month");
+// grab new note button
+const newNoteButton = document.getElementById("note-btn");
+// grab new note div
+const newNoteDiv = document.getElementById("new-note");
 
 const appContainer = document.querySelector('#app');
 isSignedIn = false
@@ -57,11 +54,21 @@ previousButtonClickListener();
 nextButtonClickListener();
 dropDownListener();
 listenToNewNoteClick()
+newNoteButtonListener();
+// fetchBackend();
 }
 
 function listenToNewNoteClick() {
   const newNoteBtn = document.querySelector('#note-btn')
   newNoteBtn.addEventListener('click', (e) => {
+    // once clicked disable the button
+    event.target.disabled = true;
+    // once clicked display textarea
+    newNoteDiv.style.display = "block";
+    // once clicked hide calendar
+    calendarDiv.style.display = "none";
+    // once clicked undisable calendar button
+    calendarButton.disabled = false;
     renderNewNote()
   })
 }
@@ -196,84 +203,69 @@ function handleSignIn(signInData) {
   })
 }
 
+//NOTE FUNCTION
+
+
 //CALENDAR FUNCTIONS
 
+// function fetchBackend() {
+//     fetch(baseURL)
+//       .then((response) => response.json())
+//       .then((userData) => console.log(userData));
+// }
+
 function renderCalendarAfterClicked() {
-  const calendarButton = document.getElementById("calendar-btn");
-  calendarButton.addEventListener("click", function(event) {
-      // once clicked disable the button
-      event.target.disabled = true;
-      // grab calendar div
-      const calendarDiv = document.getElementById('calendar-container');
-      calendarDiv.style.display = "block";
-      // garb calendar card
-      const calendarCard = document.getElementById("card");
-      // grab title (month - year)
-      // const calendarTitle = document.getElementById("monthAndYear");
-      // grab calendar table
-      const calendarTable = document.getElementById("calendar");
-      // grab calendar header
-      const theadTag = document.getElementById("calendar-header");
-      //// add days to header ---------------- TO DO: MAKE LOOP ----------------- ////
-      const trTag = document.createElement("tr");
-      theadTag.append(trTag);
-      const thTag1 = document.createElement("th");
-      thTag1.innerText = days[0];
-      const thTag2 = document.createElement("th");
-      thTag2.innerText = days[1];
-      const thTag3 = document.createElement("th");
-      thTag3.innerText = days[2];
-      const thTag4 = document.createElement("th");
-      thTag4.innerText = days[3];
-      const thTag5 = document.createElement("th");
-      thTag5.innerText = days[4];
-      const thTag6 = document.createElement("th");
-      thTag6.innerText = days[5];
-      const thTag7 = document.createElement("th");
-      thTag7.innerText = days[6];
-      trTag.append(thTag1, thTag2,thTag3, thTag4, thTag5, thTag6, thTag7);
-  });
+    calendarButton.addEventListener("click", function(event) {
+        // once clicked disable the button
+        event.target.disabled = true;
+        // once clicked display calendar
+        calendarDiv.style.display = "block";
+        // once clicked undisable new note button
+        newNoteButton.disabled = false;
+        // once clicked hide note textarea
+        newNoteDiv.style.display = "none";
+    });
 }
 
 function displayCalendar(month, year) {
-  //// DISPLAYING CALENDAR BODY ////
-  const firstDay = (new Date(year, month)).getDay();
-  const daysInMonth = 32 - new Date(year, month, 32).getDate(); 
-  // clearing body
-  tbodyTag.innerHTML = "";   
-  // assign month - year to calendar title
-  calendarTitle.innerText = months[month] + " " + year;
-  yearsSelections.value = year;
-  monthsSelections.value = month;
-  // generating dates
-  let date = 1;
-  for (let counter = 0; counter < 6; counter++) {
-      let calendarBodyRow = document.createElement("tr");
-      // filling calendar with dates
-      for (let i = 0; i < 7; i++) {
-          if (counter === 0 && i < firstDay) {
-              // adding cell
-              let cell = document.createElement("td");
-              let cellText = document.createTextNode("");
-              cell.appendChild(cellText);
-              calendarBodyRow.appendChild(cell);
-          } else if (date > daysInMonth) {
-              break;
-          } else {
-              let cell = document.createElement("td");
-              let cellText = document.createTextNode(date);
-              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                  // color today's date
-                  cell.classList.add("bg-info");
-              } 
-              cell.appendChild(cellText);
-              calendarBodyRow.appendChild(cell);
-              date++;
-          }      
-      }
-      // add each row to calendar body.
-      tbodyTag.appendChild(calendarBodyRow);
-  }
+    //// DISPLAYING CALENDAR BODY ////
+    const firstDay = (new Date(year, month)).getDay();
+    const daysInMonth = 32 - new Date(year, month, 32).getDate(); 
+    // clearing body
+    tbodyTag.innerHTML = "";   
+    // assign month - year to calendar title
+    calendarTitle.innerText = months[month] + " " + year;
+    yearsSelections.value = year;
+    monthsSelections.value = month;
+    // generating dates
+    let date = 1;
+    for (let counter = 0; counter < 6; counter++) {
+        let calendarBodyRow = document.createElement("tr");
+        // filling calendar with dates
+        for (let i = 0; i < 7; i++) {
+            if (counter === 0 && i < firstDay) {
+                // adding cell
+                let cell = document.createElement("td");
+                let cellText = document.createTextNode("");
+                cell.appendChild(cellText);
+                calendarBodyRow.appendChild(cell);
+            } else if (date > daysInMonth) {
+                break;
+            } else {
+                let cell = document.createElement("td");
+                let cellText = document.createTextNode(date);
+                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                    // color today date
+                    cell.style.background = "#B0E0E6";
+                } 
+                cell.appendChild(cellText);
+                calendarBodyRow.appendChild(cell);
+                date++;
+            }      
+        }
+        // add each row to calendar body
+        tbodyTag.appendChild(calendarBodyRow);
+    }
 }
 
 function previousButtonClickListener() {
