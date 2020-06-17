@@ -96,8 +96,9 @@ function listenToSignInClick() {
 
 //3.sign-out
 function signOut() {
-  const signOut = document.querySelector('#buttons-container')
-  signOut.addEventListener('click', () => {
+  const signOut = document.querySelector('#signout-btn')
+  signOut.addEventListener('click', (e) => {
+    console.log(e.target)
     handleSignOut()
   })
 }
@@ -107,6 +108,7 @@ function handleSignOut() {
       method: 'delete'
     })
     .then(resp => resp.json())
+    renderSignIn()
     isSignedIn = false
 }
 function listenForSignInSubmit() {

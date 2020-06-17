@@ -97,7 +97,8 @@ function listenToSignInClick() {
 //3.sign-out
 function signOut() {
   const signOut = document.querySelector('#buttons-container')
-  signOut.addEventListener('click', () => {
+  signOut.addEventListener('click', (e) => {
+    console.log(e.target)
     handleSignOut()
   })
 }
@@ -107,6 +108,7 @@ function handleSignOut() {
       method: 'delete'
     })
     .then(resp => resp.json())
+    renderSignIn()
     isSignedIn = false
 }
 function listenForSignInSubmit() {
@@ -144,7 +146,6 @@ function handleSignIn(signInData) {
   .then(user => {
     if (!user.error) {
       renderhomePage(user)
-      isSignedIn = true
     } 
   })
 }
