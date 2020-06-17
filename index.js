@@ -68,7 +68,7 @@ function listenToNewNoteClick() {
 function renderNewNote() {
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
-
+  recognition.continuous = true
   let textArea = document.querySelector('#txtarea')
 
   recognition.addEventListener('result', (e) => {
@@ -80,11 +80,9 @@ function renderNewNote() {
       textArea.textContent = transcript
     console.log(transcript)
   });
-  recognition.addEventListener('end', recognition.start)
   recognition.start();
   
-  let saveBtn = document.createElement('button');
-  saveBtn.setAttribute("class", "btn btn-outline-info")
+  // listenToNoteSubmit()
 
 }
 
