@@ -36,11 +36,6 @@ function renderhomePage() {
     <button type="button" class="btn btn-outline-info" id="note-btn">NEW NOTE</button>
     <button type="button" class="btn btn-outline-info" id="calendar-btn">CALENDAR</button>
   </div>
-<div class ='form-container'>
-  <div class='notes-container'>
-
-  </div>
-</div>
 `
 signOut()
 renderCalendarAfterClicked();
@@ -74,9 +69,7 @@ function renderNewNote() {
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
 
-  let p = document.createElement('p');
-  const formContainer = document.querySelector('.notes-container');
-  formContainer.appendChild(p);
+  let textArea = document.querySelector('#txtarea')
 
   recognition.addEventListener('result', (e) => {
     const transcript = Array.from(e.results)
@@ -84,11 +77,7 @@ function renderNewNote() {
       .map(result => result.transcript)
       .join("")
 
-      p.textContent = transcript
-      if(e.results[0].isFinal) {
-        p = document.createElement('p');
-        formContainer.appendChild(p)
-      }
+      textArea.textContent = transcript
     console.log(transcript)
   });
   recognition.addEventListener('end', recognition.start)
