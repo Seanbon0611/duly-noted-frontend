@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Vibur&display=swap');
-
 
 * {
   box-sizing: border-box;
@@ -7,7 +5,7 @@
 
 body {
   font-family: 'Nunito Sans', sans-serif;
-  padding: 20px 60px;
+  padding: 20px 30px;
   text-align: center;
   position:relative ;
   margin-bottom:100px;
@@ -78,9 +76,13 @@ h1 {
 }
 
 .logo {
-  /* height: 200px; */
+  height: 200px;
   width: 200px;
-  margin-bottom: -35px;
+}
+
+.logo-container {
+  height: 100%;
+  width: 70px;
 }
 
 .header {
@@ -88,6 +90,7 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 25px;
 }
 
@@ -98,28 +101,6 @@ h1 {
   align-items: center;
   justify-content: flex-end;
 }
-/* .form-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-}
-
-.notes-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  width: 500px;
-  height: 50%;
-  border: 1px solid black;
-  box-shadow: 5px 2px 2px grey;
-}
-html {
-    display: table;
-    margin: auto;
-} */
-
 
 .signup {
   color: blue;
@@ -143,17 +124,52 @@ html {
 #monthAndYear {
   color: rgb(36, 122, 117);
 }
+.group {
+  position: relative;
+  margin: 15px 0;
+}
 
-/* #signin-form {
 
-} */
+.form-container {
+  display: flex; 
+  margin: 0 auto;
+  flex-direction: column;
+  width: 380px;
+  padding-top: 30px;
+}
 
-/* .form-input-label {
-  font-size: 16px;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  transition: 300ms ease all;
-} */
+
+  
+.form-input {
+    background: none;
+    background-color: white;
+    color: teal;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    margin: 25px 0;
+    padding-top: 20px;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 3em;
+  width: 100%;
+  background-color: teal;
+  color: white;
+  text-align: center;
+  flex: 0 0 50px;
+  margin-top: auto;
+}
+
+#listening {
+  font-size: 30px;
+}
+#new-note-submit {
+  margin: 25px;
+}

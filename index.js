@@ -122,15 +122,20 @@ function handleNoteSubmit(noteContent) {
 //1.sign-in form
 function renderSignIn() {
     appContainer.innerHTML = `
-    <form id='signin-form'>
-    <h1>SIGN IN</h1>
-    <label class='form-input-label'>Username</label>
-    <input type='text' placeholder="Enter Username" name='usernameInput'>
-    <label class='form-input-label'>Email</label>
-    <input type='text' placeholder="Enter Email" name='emailInput'>
-    <input class='btn btn-outline-info'type="submit">
-    <p>Not registered? Sign-up <span class='signup'>here</span></p>
-    </form>
+    <div class='form-container'>
+      <form id='signin-form'>
+      <h1>SIGN IN</h1>
+      <div class='group'>
+        <input class='form-input'type='text' placeholder="Enter Username" name='usernameInput'>
+      </div>
+      <div class='group'>
+        <input class='form-input' type='text' placeholder="Enter Email" name='emailInput'>
+      </div>
+      <input class='btn btn-outline-info'type="submit">
+      <br><br>
+      <p>Not registered? Sign-up <span class='signup'>here</span></p>
+      </form>
+    </div>
   `
   listenForSignInSubmit()
   listenToSignUpClick()
@@ -145,15 +150,18 @@ function listenToSignUpClick() {
 //2.sign-up form
 function renderSignUp() {
   appContainer.innerHTML = `
-  <form id='signup-form'>
-  <h1>SIGN UP</h1>
-  <label class='form-input-label'>Username</label>
-  <input type='text' placeholder="Enter Username" name='usernameInput'>
-  <label class='form-input-label'>Email</label>
-  <input type='text' placeholder="Enter Email" name='emailInput'>
-  <input id='sign-up-submit' type="submit">
-  <p>Already registered? Sign-in <span class='signin'>here</span></p>
-</form>
+    <div class='form-container'>
+      <form id='signup-form'>
+        <h1>SIGN UP</h1>
+        <label class='form-input-label'>Username</label>
+        <input class='form-input' type='text' placeholder="Enter Username" name='usernameInput'>
+        <label class='form-input-label'>Email</label>
+        <input class='form-input' type='text' placeholder="Enter Email" name='emailInput'>
+        <input class='btn btn-outline-info' id='sign-up-submit' type="submit">
+        <br><br>
+        <p>Already registered? Sign-in <span class='signin'>here</span></p>
+      </form>
+    </div>
   `
   listenToSignInClick()
   listenForSignUpSubmit()
