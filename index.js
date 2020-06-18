@@ -1,3 +1,6 @@
+const usersURL = "http://localhost:3000/users";
+const notesURL = "http://localhost:3000/notes";
+
 let today, currentMonth, currentYear, days, months, years, tbodyTag, calendarTitle, yearsSelections, monthsSelections;
 
 today = new Date();
@@ -15,10 +18,6 @@ calendarTitle = document.getElementById("monthAndYear");
 yearsSelections = document.getElementById("year");
 // grab dropdown month
 monthsSelections = document.getElementById("month");
-
-
-
-
 
 
 const appContainer = document.querySelector('#app');
@@ -46,7 +45,7 @@ previousButtonClickListener();
 nextButtonClickListener();
 dropDownListener();
 listenToNewNoteClick();
-dateClick();
+fetchBackend();
 }
 
 function listenToNewNoteClick() {
@@ -334,13 +333,32 @@ function dropDownListener() {
   })
 }
 
-function dateClick() {
+////////////////////////////////////////////////////
+
+function fetchBackend() {
+    fetch(notesURL)
+      .then((response) => response.json())
+      .then((noteData) => rederNote(noteData));
+}
+
+function rederNote(noteData) {
+  noteData.forEach((note) => {
+    addNoteTopage(note);
+  })
+}
+
+function addNoteTopage(note) {
   const NotesListDiv = document.getElementById("note-list");
   const calendarDiv = document.getElementById('calendar-container');
   const calendarButton = document.getElementById("calendar-btn");
-  const NoteUl = document.getElementById("note-ul");
+  const h5Tag = document.getElementById("today-note");
+  let noteCreated = note.created_at.split("-");
+  let year = noteCreated[0];
+  let month = noteCreated[1];
+  let date = noteCreated[2].split("T")[0];
+  console.log(year, month, date);
   tbodyTag.addEventListener("click", function(event) {
-      if (event.target.className === "date") {
+      if (event.target.className === "date" && event.target.innerText == `${date}`) {
           // once date clicked
           // display note list
           NotesListDiv.style.display = "block";
@@ -349,10 +367,12 @@ function dateClick() {
           // turn on calendar button
           calendarButton.disabled = false;
 
-          // list
-          const NoteLi = document.createElement("li")
-          NoteLi.innerText = "dummy note1";
-          NoteUl.append(NoteLi);
+          h5Tag.innerText = `${date} - ${month} - ${year} Notes`
+
+          // note
+          const singleNote = document.createElement("div")
+          singleNote.innerText = `${note.content}`;
+          NotesListDiv.append(singleNote);
 
       }
   })
