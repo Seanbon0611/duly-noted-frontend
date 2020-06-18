@@ -23,11 +23,8 @@ monthsSelections = document.getElementById("month");
 const appContainer = document.querySelector('#app');
 
 
-isSignedIn = false
 window.SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
-if (localStorage.user_id) {
-  renderhomePage()
-} else {
+if (!localStorage.user_id) {
   renderSignIn()
 }
 function renderhomePage() {
@@ -122,7 +119,7 @@ function handleNoteSubmit(noteContent) {
 //1.sign-in form
 function renderSignIn() {
     appContainer.innerHTML = `
-    <form>
+    <form id='signin-form'>
     <h1>SIGN IN</h1>
     <input type='text' placeholder="Enter Username" name='usernameInput'>
     <input type='text' placeholder="Enter Email" name='emailInput'>
@@ -143,19 +140,56 @@ function listenToSignUpClick() {
 //2.sign-up form
 function renderSignUp() {
   appContainer.innerHTML = `
-  <form>
+  <form id='signup-form'>
   <h1>SIGN UP</h1>
-  <input type='text' placeholder="Enter Username">
-  <input type='text' placeholder="Enter Email">
-  <input type="submit">
+  <input type='text' placeholder="Enter Username" name='usernameInput'>
+  <input type='text' placeholder="Enter Email" name='emailInput'>
+  <input id='sign-up-submit' type="submit">
   <p>Already registered? Sign-in <span class='signin'>here</span></p>
 </form>
   `
   listenToSignInClick()
+  listenForSignUpSubmit()
 }
 
-function handleSignUp() {
+function listenForSignUpSubmit() {
+  const signUpForm = document.querySelector('#signup-form');
+  signUpForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const usernameInput = event.target.usernameInput
+    const emailInput = event.target.emailInput
 
+    const username = usernameInput.value
+    const email = emailInput.value
+
+    const signUpData = {
+      username,
+      email
+    }
+
+    handleSignUp(signUpData);
+  })
+}
+
+function handleSignUp(signUpData) {
+  fetch('http://localhost:3000/users', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(signUpData)
+  })
+  .then(resp => resp.json())
+  .then(res => {
+    console.log(res)
+    // if (!res.error) {
+    //   renderSignIn()
+    // } else {
+    //   console.log("error!")
+    // }
+  })
+
+  
 }
 
 function listenToSignInClick() {
@@ -195,7 +229,7 @@ function handleSignOut() {
     localStorage.clear()
 }
 function listenForSignInSubmit() {
-  const formContainer = document.querySelector('#app')
+  const formContainer = document.querySelector('#signin-form')
   formContainer.addEventListener('submit', (event) => {
     event.preventDefault();
     const usernameInput = event.target.usernameInput
