@@ -24,6 +24,7 @@ const appContainer = document.querySelector('#app');
 
 
 window.SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+
 if (!localStorage.user_id) {
   renderSignIn()
 } else {

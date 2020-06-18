@@ -25,7 +25,7 @@
   <br>
   <div id='calendar-container' style="display: none;">
     <div class="card" id="card">
-      <h4 class="card-header" id="monthAndYear"></h4>
+      <h1 class="card-header" id="monthAndYear"></h1>
       <table class="table table-bordered table-responsive-sm" id="calendar">
         <thead id="calendar-header">
           <tr>
@@ -42,13 +42,14 @@
           <!-- calendar body -->
         </tbody>
       </table>
+      <br>
       <div class="form-inline" id="p-n-btn">
-        <button class="btn btn-outline-info col-sm-6" id="previous"> << </button>
-        <button class="btn btn-outline-info col-sm-6" id="next"> >> </button>
+        <button class="butn" id="previous"> << </button>     
+        <button class="butn" id="next"> >> </button>
       </div>
       <br/>
       <form class="form-inline" id="drop-down">
-        <select class="form-control col-sm-6" name="month" id="month">
+        <select class="dropdown" name="month" id="month">
           <!-- month dropdown -->
           <option value=0>January</option>
           <option value=1>February</option>
@@ -63,7 +64,7 @@
           <option value=10>November</option>
           <option value=11>December</option>
         </select>
-        <select class="form-control col-sm-6" name="year" id="year">
+        <select class="dropdown" name="year" id="year">
           <!-- year dropdown -->
           <option value=2020>2020</option>
           <option value=2021>2021</option>
@@ -91,6 +92,7 @@
       >
       </textarea>
       <br>
+      <!-- <h4>🔴</h4> -->
       <input id="new-note-submit" type="submit" class="btn btn-outline-info" value="Save Note">
     </form>
   </div>
