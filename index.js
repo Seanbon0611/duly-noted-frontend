@@ -47,7 +47,7 @@ dropDownListener();
 listenToNewNoteClick();
 fetchBackend();
 toggleFilterBtn();
-deleteNote();
+// deleteNote();
 }
 
 function listenToNewNoteClick() {
@@ -438,8 +438,8 @@ function rederNote(noteData) {
 }
 
 function addNoteTopage(note) {
-  const NotesListDiv = document.getElementById("notes-div");
-  const NoteList = document.getElementById("notes-list");
+  let NotesListDiv = document.getElementById("notes-div");
+  let NoteList = document.getElementById("notes-list");
   const calendarDiv = document.getElementById('calendar-container');
   const calendarButton = document.getElementById("calendar-btn");
   const h5Tag = document.getElementById("today-note");
@@ -465,11 +465,30 @@ function addNoteTopage(note) {
 
           // note
           const singleNote = document.createElement("div")
+          singleNote.setAttribute("id", `${note.id}`)
           singleNote.innerText = `${note.content}`;
+          const br = document.createElement("br")
+          singleNote.append(br);
           NoteList.append(singleNote);
+          const deleteBtn = document.createElement("button")
+          deleteBtn.setAttribute("id", `${note.id}`)
+          deleteBtn.style.color = "rgb(255,250,250)";
+          deleteBtn.style.border = "2px solid rgb(241, 166, 142)";
+          deleteBtn.style.backgroundColor = "rgb(241, 166, 142)"
+          deleteBtn.style.borderRadius = "4px";
+          deleteBtn.style.width = "50px"
+          deleteBtn.style.fontSize = "small";
+          deleteBtn.style.boxShadow = "0 4px 4px 0 rgba(0,0,0,0.2)";
+          deleteBtn.innerText = "delete";
+          singleNote.append(deleteBtn)
+          //// add delete listener
+          deleteBtn.addEventListener("click", function(e) {
+            const noteId = parseInt(e.target.id);
+            console.log(noteId)
+            fetch(`http://localhost:3000/notes/${noteId}`, { method: "DELETE" });
+            document.getElementById(noteId).remove();
+          })
       }
-    //// will we check who is logged in?
-    //// and no repeat when click again
   })
 }
 
@@ -511,8 +530,4 @@ function toggleFilterBtn() {
     console.log("plain cliciked");
     calendar.style.backgroundImage = "none";
   })
-}
-
-function deleteNote() {
-  
 }
