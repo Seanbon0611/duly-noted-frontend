@@ -46,7 +46,8 @@ nextButtonClickListener();
 dropDownListener();
 listenToNewNoteClick();
 fetchBackend();
-toggleFilterBtn()
+toggleFilterBtn();
+deleteNote();
 }
 
 function listenToNewNoteClick() {
@@ -471,4 +472,8 @@ function toggleFilterBtn() {
     console.log("plain cliciked");
     calendar.style.backgroundImage = "none";
   })
+}
+
+function deleteNote() {
+  
 }
