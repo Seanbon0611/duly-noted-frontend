@@ -123,7 +123,9 @@ function renderSignIn() {
     appContainer.innerHTML = `
     <form id='signin-form'>
     <h1>SIGN IN</h1>
+    <label class='form-input-label'>Username</label>
     <input type='text' placeholder="Enter Username" name='usernameInput'>
+    <label class='form-input-label'>Email</label>
     <input type='text' placeholder="Enter Email" name='emailInput'>
     <input class='btn btn-outline-info'type="submit">
     <p>Not registered? Sign-up <span class='signup'>here</span></p>
@@ -144,7 +146,9 @@ function renderSignUp() {
   appContainer.innerHTML = `
   <form id='signup-form'>
   <h1>SIGN UP</h1>
+  <label class='form-input-label'>Username</label>
   <input type='text' placeholder="Enter Username" name='usernameInput'>
+  <label class='form-input-label'>Email</label>
   <input type='text' placeholder="Enter Email" name='emailInput'>
   <input id='sign-up-submit' type="submit">
   <p>Already registered? Sign-in <span class='signin'>here</span></p>
