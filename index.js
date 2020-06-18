@@ -22,9 +22,11 @@ monthsSelections = document.getElementById("month");
 
 
 const appContainer = document.querySelector('#app');
+
+
 isSignedIn = false
 window.SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
-if (isSignedIn === true) {
+if (localStorage.user_id) {
   renderhomePage()
 } else {
   renderSignIn()
@@ -69,7 +71,7 @@ function renderNewNote() {
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
   recognition.continuous = true
-  let textArea = document.querySelector('#txtarea')
+  let textArea = document.querySelector('#txtarea');
 
   recognition.addEventListener('result', (e) => {
     const transcript = Array.from(e.results)
@@ -82,11 +84,37 @@ function renderNewNote() {
   });
   recognition.start();
   
-  // listenToNoteSubmit()
+  listenToNoteSubmit()
 
 }
 
+function listenToNoteSubmit() {
+  const noteContainer = document.querySelector('#note-form');
+  noteContainer.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const noteInput = event.target.textinput;
+    const note = noteInput.value;
+    let userId = parseInt(localStorage.user_id)
+    const noteContent = {
+      user_id: userId,
+      content: note
+    }
 
+    handleNoteSubmit(noteContent);
+    noteInput.value = "";
+  })
+}
+
+function handleNoteSubmit(noteContent) {
+  fetch('http://localhost:3000/notes', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(noteContent)
+  })
+  .then(res => res.json())
+}
 
 //1.sign-in form
 function renderSignIn() {
@@ -122,6 +150,11 @@ function renderSignUp() {
   `
   listenToSignInClick()
 }
+
+function handleSignUp() {
+
+}
+
 function listenToSignInClick() {
   const signInLink = document.querySelector('.signin')
   signInLink.addEventListener('click', (e) => {
@@ -144,7 +177,7 @@ function handleSignOut() {
     })
     .then(resp => resp.json())
     renderSignIn()
-    isSignedIn = false
+    localStorage.clear()
 }
 function listenForSignInSubmit() {
   const formContainer = document.querySelector('#app')
@@ -178,10 +211,10 @@ function handleSignIn(signInData) {
     body: JSON.stringify(signInData)
   })
   .then(resp => resp.json())
-  .then(user => {
-    if (!user.error) {
+  .then(data => { console.log(data)
+    let user = localStorage.setItem("user_id", data.user.id)
+    if (!data.error) {
       renderhomePage(user)
-      isSignedIn = true
     } 
   })
 }
