@@ -46,6 +46,7 @@ nextButtonClickListener();
 dropDownListener();
 listenToNewNoteClick();
 fetchBackend();
+toggleFilterBtn()
 }
 
 function listenToNewNoteClick() {
@@ -451,4 +452,23 @@ function renderSingleNote(note) {
     <h5>${date} - ${month} - ${year} Notes</h5>
     <div>${note.content}</div>
   `
+}
+
+function toggleFilterBtn() {
+  const plain = document.getElementById("filrer-1");
+  const breeze = document.getElementById("filrer-2");
+  const bloom = document.getElementById("filrer-3");
+  const calendar = document.getElementById("card");
+  breeze.addEventListener("click", function() {
+    console.log("breeze cliciked");
+    calendar.style.backgroundImage = "url('assets/002op.png')";
+  })
+  bloom.addEventListener("click", function() {
+    console.log("bloom cliciked");
+    calendar.style.backgroundImage = "url('assets/001.png')";
+  })
+  plain.addEventListener("click", function() {
+    console.log("plain cliciked");
+    calendar.style.backgroundImage = "none";
+  })
 }
