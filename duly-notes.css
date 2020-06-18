@@ -2,26 +2,82 @@
   box-sizing: border-box;
 }
 
-/* .logo-container {
-  height: 100%;
-  width: 10px;
-} */
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  padding: 20px 60px;
+  text-align: center;
+  position:relative ;
+  margin-bottom:100px;
+}
+
+h1 {
+  align-self: auto;
+}
+
+#calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#card {
+  background-image: url('assets/SF_4.jpg');
+  background-size: 100%;
+  opacity: 0.8;
+  background-repeat: no-repeat;
+  width: 700px;
+  height: 550px;
+  font-size: large;
+}
+
+.date:hover {
+  background-color:rgb(233, 247, 247);
+}
+
+.butn {
+  /* opacity: 0.8; */
+  background-color: white;
+  border-radius: 4px;
+  color: DarkSlateGrey;
+  border: 2px solid rgb(131, 211, 184);
+  width: 300px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.butn:hover {
+  background-color: mintcream;
+}
+
+.dropdown {
+  background-color: white;
+  border-radius: 4px;
+  color: black;
+  border: 2px solid rgb(241, 188, 168);
+  width: 300px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dropdown:hover {
+  background-color:FloralWhite;
+}
+
+#calendar-header {
+  background-color: rgb(252, 247, 244);
+  color: black;
+}
+
+#calendar-body {
+  color: black;
+}
+
 .logo {
-  height: 200px;
+  /* height: 200px; */
   width: 200px;
   margin-bottom: -35px;
-}
-
-ul.notes {
-  background: Linen;
-  padding: 5px;
-}
-
-.notes li {
-  background: MintCream;
-  padding: 8px;
-  margin-left: 35px;
-  color: rgb(70, 70, 70);
 }
 
 .header {
@@ -61,13 +117,6 @@ html {
     margin: auto;
 } */
 
-body {
-  font-family: 'Nunito Sans', sans-serif;
-  padding: 20px 60px;
-  text-align: center;
-  position:relative ;
-  margin-bottom:100px;
-}
 
 .signup {
   color: blue;
@@ -85,7 +134,7 @@ body {
 }
 
 #sunday {
-  color: coral;
+  color: rgb(221, 107, 65);
 }
 
 #monthAndYear {
