@@ -153,9 +153,7 @@ function renderSignUp() {
     <div class='form-container'>
       <form id='signup-form'>
         <h1>SIGN UP</h1>
-        <label class='form-input-label'>Username</label>
         <input class='form-input' type='text' placeholder="Enter Username" name='usernameInput'>
-        <label class='form-input-label'>Email</label>
         <input class='form-input' type='text' placeholder="Enter Email" name='emailInput'>
         <input class='btn btn-outline-info' id='sign-up-submit' type="submit">
         <br><br>
@@ -280,6 +278,36 @@ function handleSignIn(signInData) {
     } 
   })
 }
+
+function listenToAboutClick() {
+  const abtBtn = document.querySelector('.about-btn');
+  abtBtn.addEventListener('click', () => {
+    appContainer.innerHTML = `
+      <div class='abt-container'>
+        <p class='about-txt'>
+          Welcome to <span class='app-name'>Duly Noted</span>, tired of always manually typing out your notes? wish you could just speak your mind and have all your ideas jot down on a notepad? Well you've come to the right place! Here at Duly noted using speech recognition technology we are able to pick up your speech, send that over to a server and translate it back into readable text! You're able to save notes, look at notes from previous days via our calendar, edit notes previous notes as well as delete notes. Happy Speaking!
+        </p>
+      </div>
+    `
+
+  })
+}
+
+listenToAboutClick();
+
+function listenToLogoClick() {
+  const logoContainer = document.querySelector('.logo-container')
+  logoContainer.addEventListener('click', () => {
+    if (!localStorage.user_id) {
+      renderSignIn()
+    } else {
+      renderhomePage()
+    }
+  })
+}
+
+listenToLogoClick();
+
 
 //CALENDAR FUNCTIONS
 
