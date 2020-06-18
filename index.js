@@ -123,13 +123,20 @@ function handleNoteSubmit(noteContent) {
 //1.sign-in form
 function renderSignIn() {
     appContainer.innerHTML = `
-    <form id='signin-form'>
-    <h1>SIGN IN</h1>
-    <input type='text' placeholder="Enter Username" name='usernameInput'>
-    <input type='text' placeholder="Enter Email" name='emailInput'>
-    <input class='btn btn-outline-info'type="submit">
-    <p>Not registered? Sign-up <span class='signup'>here</span></p>
-    </form>
+    <div class='form-container'>
+      <form id='signin-form'>
+      <h1>SIGN IN</h1>
+      <div class='group'>
+        <input class='form-input'type='text' placeholder="Enter Username" name='usernameInput'>
+      </div>
+      <div class='group'>
+        <input class='form-input' type='text' placeholder="Enter Email" name='emailInput'>
+      </div>
+      <input class='btn btn-outline-info'type="submit">
+      <br><br>
+      <p>Not registered? Sign-up <span class='signup'>here</span></p>
+      </form>
+    </div>
   `
   listenForSignInSubmit()
   listenToSignUpClick()
@@ -144,13 +151,16 @@ function listenToSignUpClick() {
 //2.sign-up form
 function renderSignUp() {
   appContainer.innerHTML = `
-  <form id='signup-form'>
-  <h1>SIGN UP</h1>
-  <input type='text' placeholder="Enter Username" name='usernameInput'>
-  <input type='text' placeholder="Enter Email" name='emailInput'>
-  <input id='sign-up-submit' type="submit">
-  <p>Already registered? Sign-in <span class='signin'>here</span></p>
-</form>
+    <div class='form-container'>
+      <form id='signup-form'>
+        <h1>SIGN UP</h1>
+        <input class='form-input' type='text' placeholder="Enter Username" name='usernameInput'>
+        <input class='form-input' type='text' placeholder="Enter Email" name='emailInput'>
+        <input class='btn btn-outline-info' id='sign-up-submit' type="submit">
+        <br><br>
+        <p>Already registered? Sign-in <span class='signin'>here</span></p>
+      </form>
+    </div>
   `
   listenToSignInClick()
   listenForSignUpSubmit()
@@ -269,6 +279,36 @@ function handleSignIn(signInData) {
     } 
   })
 }
+
+function listenToAboutClick() {
+  const abtBtn = document.querySelector('.about-btn');
+  abtBtn.addEventListener('click', () => {
+    appContainer.innerHTML = `
+      <div class='abt-container'>
+        <p class='about-txt'>
+          Welcome to <span class='app-name'>Duly Noted</span>, tired of always manually typing out your notes? wish you could just speak your mind and have all your ideas jot down on a notepad? Well you've come to the right place! Here at Duly noted using speech recognition technology we are able to pick up your speech, send that over to a server and translate it back into readable text! You're able to save notes, look at notes from previous days via our calendar, edit notes previous notes as well as delete notes. Happy Speaking!
+        </p>
+      </div>
+    `
+
+  })
+}
+
+listenToAboutClick();
+
+function listenToLogoClick() {
+  const logoContainer = document.querySelector('.logo-container')
+  logoContainer.addEventListener('click', () => {
+    if (!localStorage.user_id) {
+      renderSignIn()
+    } else {
+      renderhomePage()
+    }
+  })
+}
+
+listenToLogoClick();
+
 
 //CALENDAR FUNCTIONS
 
@@ -412,47 +452,46 @@ function addNoteTopage(note) {
       // making sure the calendar date being clicked on is valid (can't click on blank box)
       // and only clickable when the date has note(s) associated with on the backend
       if (event.target.className === "date" && event.target.innerText == `${date}`) {
-        renderSingleNote(note)
           // once date clicked
           // display note list
-          // NotesListDiv.style.display = "block";
+          NotesListDiv.style.display = "block";
           // hide calendar
-          // calendarDiv.style.display = "none";
+          calendarDiv.style.display = "none";
           // turn on calendar button
-          // calendarButton.disabled = false;
+          calendarButton.disabled = false;
 
-          // h5Tag.innerText = `${date} - ${month} - ${year} Notes`
+          h5Tag.innerText = `${date} - ${month} - ${year} Notes`
 
           // note
-          // const singleNote = document.createElement("div")
-          // singleNote.innerText = `${note.content}`;
-          // NoteList.append(singleNote);
+          const singleNote = document.createElement("div")
+          singleNote.innerText = `${note.content}`;
+          NoteList.append(singleNote);
       }
     //// will we check who is logged in?
     //// and no repeat when click again
   })
 }
 
-function renderSingleNote(note) {
-  const notesToArray = new Array(note.content)
-  console.log(notesToArray)
-  let noteCreated = note.created_at.split("-");
-  let year = noteCreated[0];
-  let month = noteCreated[1];
-  let date = noteCreated[2].split("T")[0];
-  const NotesListDiv = document.getElementById("notes-div");
-  const NoteList = document.getElementById("notes-list");
-  const calendarDiv = document.getElementById('calendar-container');
-  const calendarButton = document.getElementById("calendar-btn");
-  const h5Tag = document.getElementById("today-note");
-  NotesListDiv.style.display = "block";
-  calendarDiv.style.display = "none";
-  calendarButton.disabled = false;
-  NoteList.innerHTML = `
-    <h5>${date} - ${month} - ${year} Notes</h5>
-    <div>${note.content}</div>
-  `
-}
+// function renderSingleNote(note) {
+//   const notesToArray = new Array(note.content)
+//   console.log(notesToArray)
+//   let noteCreated = note.created_at.split("-");
+//   let year = noteCreated[0];
+//   let month = noteCreated[1];
+//   let date = noteCreated[2].split("T")[0];
+//   const NotesListDiv = document.getElementById("notes-div");
+//   const NoteList = document.getElementById("notes-list");
+//   const calendarDiv = document.getElementById('calendar-container');
+//   const calendarButton = document.getElementById("calendar-btn");
+//   const h5Tag = document.getElementById("today-note");
+//   NotesListDiv.style.display = "block";
+//   calendarDiv.style.display = "none";
+//   calendarButton.disabled = false;
+//   NoteList.innerHTML = `
+//     <h5>${date} - ${month} - ${year} Notes</h5>
+//     <div>${note.content}</div>
+//   `
+// }
 
 function toggleFilterBtn() {
   const plain = document.getElementById("filrer-1");
