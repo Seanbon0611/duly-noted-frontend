@@ -1,3 +1,6 @@
+const usersURL = "http://localhost:3000/users";
+const notesURL = "http://localhost:3000/notes";
+
 let today, currentMonth, currentYear, days, months, years, tbodyTag, calendarTitle, yearsSelections, monthsSelections;
 
 today = new Date();
@@ -15,10 +18,6 @@ calendarTitle = document.getElementById("monthAndYear");
 yearsSelections = document.getElementById("year");
 // grab dropdown month
 monthsSelections = document.getElementById("month");
-
-
-
-
 
 
 const appContainer = document.querySelector('#app');
@@ -42,7 +41,8 @@ displayCalendar(currentMonth, currentYear);
 previousButtonClickListener();
 nextButtonClickListener();
 dropDownListener();
-listenToNewNoteClick()
+listenToNewNoteClick();
+fetchBackend();
 }
 
 function listenToNewNoteClick() {
@@ -50,6 +50,7 @@ function listenToNewNoteClick() {
   const newNoteDiv = document.getElementById("new-note");
   const calendarDiv = document.getElementById('calendar-container');
   const calendarButton = document.getElementById("calendar-btn");
+  const NotesListDiv = document.getElementById("notes-div");
   newNoteBtn.addEventListener('click', (event) => {
     // once clicked disable the button
     event.target.disabled = true;
@@ -59,6 +60,8 @@ function listenToNewNoteClick() {
     calendarDiv.style.display = "none";
     // once clicked undisable calendar button
     calendarButton.disabled = false;
+    // once clicked hide note list
+    NotesListDiv.style.display = "none";
     renderNewNote()
   })
 }
@@ -202,6 +205,18 @@ function signOut() {
   signOut.addEventListener('click', (e) => {
     console.log(e.target)
     handleSignOut()
+    /////////////////////////////////////////////////////////
+    //*** ADDING - HIDE NEW NOTE TEXT AREA WHEN SIGNOUT ***//
+    const newNoteDiv = document.getElementById("new-note");
+    newNoteDiv.style.display = "none";
+    //////*** ADDING - HIDE CALENDAR WHEN SIGNOUT ***///////
+    const calendarDiv = document.getElementById('calendar-container');
+    calendarDiv.style.display = "none";
+    ////////////////////////////////////////////////////////
+    //////*** ADDING - HIDE NOTE LIST WHEN SIGNOUT ***///////
+    const NotesListDiv = document.getElementById("notes-div");
+    NotesListDiv.style.display = "none";
+    ////////////////////////////////////////////////////////
   })
 }
 
@@ -260,6 +275,7 @@ function renderCalendarAfterClicked() {
   const calendarDiv = document.getElementById('calendar-container');
   const newNoteBtn = document.querySelector('#note-btn')
   const newNoteDiv = document.getElementById("new-note");
+  const NotesListDiv = document.getElementById("notes-div");
   calendarButton.addEventListener("click", function(event) {
       // once clicked disable the button
       event.target.disabled = true;
@@ -269,6 +285,8 @@ function renderCalendarAfterClicked() {
       newNoteBtn.disabled = false;
       // once clicked hide note textarea
       newNoteDiv.style.display = "none";
+      // once clicked hide note list
+      NotesListDiv.style.display = "none";
   });
 }
 
@@ -298,6 +316,10 @@ function displayCalendar(month, year) {
               break;
           } else {
               let cell = document.createElement("td");
+              //////////////////////////////////////////
+              //** ADDING - CLASS ATTRIBUTE TO DATE **//
+              cell.setAttribute("class", "date");
+              /////////////////////////////////////////
               let cellText = document.createTextNode(date);
               if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                   // color today's date
@@ -342,5 +364,56 @@ function dropDownListener() {
       currentMonth = parseInt(monthsSelections.value);
       console.log(currentMonth + 1)
       displayCalendar(currentMonth, currentYear);
+  })
+}
+
+////////////////////////////////////////////////////
+
+function fetchBackend() {
+    fetch(notesURL)
+      .then((response) => response.json())
+      .then((noteData) => rederNote(noteData));
+}
+
+function rederNote(noteData) {
+  noteData.forEach((note) => {
+    addNoteTopage(note);
+  })
+}
+
+function addNoteTopage(note) {
+  const NotesListDiv = document.getElementById("notes-div");
+  const NoteList = document.getElementById("notes-list");
+  const calendarDiv = document.getElementById('calendar-container');
+  const calendarButton = document.getElementById("calendar-btn");
+  const h5Tag = document.getElementById("today-note");
+  // extract day month year from note.created_at
+  let noteCreated = note.created_at.split("-");
+  let year = noteCreated[0];
+  let month = noteCreated[1];
+  let date = noteCreated[2].split("T")[0];
+  console.log(year, month, date);
+  // clear field
+  tbodyTag.addEventListener("click", function(event) {
+      // making sure the calendar date being clicked on is valid (can't click on blank box)
+      // and only clickable when the date has note(s) associated with on the backend
+      if (event.target.className === "date" && event.target.innerText == `${date}`) {
+          // once date clicked
+          // display note list
+          NotesListDiv.style.display = "block";
+          // hide calendar
+          calendarDiv.style.display = "none";
+          // turn on calendar button
+          calendarButton.disabled = false;
+
+          h5Tag.innerText = `${date} - ${month} - ${year} Notes`
+
+          // note
+          const singleNote = document.createElement("div")
+          singleNote.innerText = `${note.content}`;
+          NoteList.append(singleNote);
+      }
+    //// will we check who is logged in?
+    //// and no repeat when click again
   })
 }
