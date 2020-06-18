@@ -26,6 +26,8 @@ const appContainer = document.querySelector('#app');
 window.SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
 if (!localStorage.user_id) {
   renderSignIn()
+} else {
+  renderhomePage()
 }
 function renderhomePage() {
   appContainer.innerHTML = `
@@ -181,12 +183,11 @@ function handleSignUp(signUpData) {
   })
   .then(resp => resp.json())
   .then(res => {
-    console.log(res)
-    // if (!res.error) {
-    //   renderSignIn()
-    // } else {
-    //   console.log("error!")
-    // }
+    if (!res.error) {
+      renderSignIn()
+    } else {
+      console.log("error!")
+    }
   })
 
   
@@ -203,7 +204,6 @@ function listenToSignInClick() {
 function signOut() {
   const signOut = document.querySelector('#signout-btn')
   signOut.addEventListener('click', (e) => {
-    console.log(e.target)
     handleSignOut()
     /////////////////////////////////////////////////////////
     //*** ADDING - HIDE NEW NOTE TEXT AREA WHEN SIGNOUT ***//
@@ -260,7 +260,7 @@ function handleSignIn(signInData) {
     body: JSON.stringify(signInData)
   })
   .then(resp => resp.json())
-  .then(data => { console.log(data)
+  .then(data => {
     let user = localStorage.setItem("user_id", data.user.id)
     if (!data.error) {
       renderhomePage(user)
@@ -370,13 +370,26 @@ function dropDownListener() {
 ////////////////////////////////////////////////////
 
 function fetchBackend() {
-    fetch(notesURL)
+    fetch(`http://localhost:3000/notes`)
       .then((response) => response.json())
-      .then((noteData) => rederNote(noteData));
+      .then( noteData => {
+        let onlyUserNotes = noteData.filter(note => note.user.id === parseInt(localStorage.user_id))
+        rederNote(onlyUserNotes)
+      });
+}
+
+
+function renderNotes(notes) {
+  let createdAt = notes.map(note => note.created_at.split("-"))
+  let year = createdAt.map(date => date[0])
+  let month = createdAt.map(date => date[1])
+  let day = createdAt.map(date => date[2].split("T")[0])
+  console.log(day)
+  
 }
 
 function rederNote(noteData) {
-  noteData.forEach((note) => {
+  noteData.map((note) => {
     addNoteTopage(note);
   })
 }
@@ -392,28 +405,49 @@ function addNoteTopage(note) {
   let year = noteCreated[0];
   let month = noteCreated[1];
   let date = noteCreated[2].split("T")[0];
-  console.log(year, month, date);
   // clear field
   tbodyTag.addEventListener("click", function(event) {
       // making sure the calendar date being clicked on is valid (can't click on blank box)
       // and only clickable when the date has note(s) associated with on the backend
       if (event.target.className === "date" && event.target.innerText == `${date}`) {
+        renderSingleNote(note)
           // once date clicked
           // display note list
-          NotesListDiv.style.display = "block";
+          // NotesListDiv.style.display = "block";
           // hide calendar
-          calendarDiv.style.display = "none";
+          // calendarDiv.style.display = "none";
           // turn on calendar button
-          calendarButton.disabled = false;
+          // calendarButton.disabled = false;
 
-          h5Tag.innerText = `${date} - ${month} - ${year} Notes`
+          // h5Tag.innerText = `${date} - ${month} - ${year} Notes`
 
           // note
-          const singleNote = document.createElement("div")
-          singleNote.innerText = `${note.content}`;
-          NoteList.append(singleNote);
+          // const singleNote = document.createElement("div")
+          // singleNote.innerText = `${note.content}`;
+          // NoteList.append(singleNote);
       }
     //// will we check who is logged in?
     //// and no repeat when click again
   })
+}
+
+function renderSingleNote(note) {
+  const notesToArray = new Array(note.content)
+  console.log(notesToArray)
+  let noteCreated = note.created_at.split("-");
+  let year = noteCreated[0];
+  let month = noteCreated[1];
+  let date = noteCreated[2].split("T")[0];
+  const NotesListDiv = document.getElementById("notes-div");
+  const NoteList = document.getElementById("notes-list");
+  const calendarDiv = document.getElementById('calendar-container');
+  const calendarButton = document.getElementById("calendar-btn");
+  const h5Tag = document.getElementById("today-note");
+  NotesListDiv.style.display = "block";
+  calendarDiv.style.display = "none";
+  calendarButton.disabled = false;
+  NoteList.innerHTML = `
+    <h5>${date} - ${month} - ${year} Notes</h5>
+    <div>${note.content}</div>
+  `
 }
