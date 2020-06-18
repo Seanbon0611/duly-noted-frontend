@@ -452,47 +452,46 @@ function addNoteTopage(note) {
       // making sure the calendar date being clicked on is valid (can't click on blank box)
       // and only clickable when the date has note(s) associated with on the backend
       if (event.target.className === "date" && event.target.innerText == `${date}`) {
-        renderSingleNote(note)
           // once date clicked
           // display note list
-          // NotesListDiv.style.display = "block";
+          NotesListDiv.style.display = "block";
           // hide calendar
-          // calendarDiv.style.display = "none";
+          calendarDiv.style.display = "none";
           // turn on calendar button
-          // calendarButton.disabled = false;
+          calendarButton.disabled = false;
 
-          // h5Tag.innerText = `${date} - ${month} - ${year} Notes`
+          h5Tag.innerText = `${date} - ${month} - ${year} Notes`
 
           // note
-          // const singleNote = document.createElement("div")
-          // singleNote.innerText = `${note.content}`;
-          // NoteList.append(singleNote);
+          const singleNote = document.createElement("div")
+          singleNote.innerText = `${note.content}`;
+          NoteList.append(singleNote);
       }
     //// will we check who is logged in?
     //// and no repeat when click again
   })
 }
 
-function renderSingleNote(note) {
-  const notesToArray = new Array(note.content)
-  console.log(notesToArray)
-  let noteCreated = note.created_at.split("-");
-  let year = noteCreated[0];
-  let month = noteCreated[1];
-  let date = noteCreated[2].split("T")[0];
-  const NotesListDiv = document.getElementById("notes-div");
-  const NoteList = document.getElementById("notes-list");
-  const calendarDiv = document.getElementById('calendar-container');
-  const calendarButton = document.getElementById("calendar-btn");
-  const h5Tag = document.getElementById("today-note");
-  NotesListDiv.style.display = "block";
-  calendarDiv.style.display = "none";
-  calendarButton.disabled = false;
-  NoteList.innerHTML = `
-    <h5>${date} - ${month} - ${year} Notes</h5>
-    <div>${note.content}</div>
-  `
-}
+// function renderSingleNote(note) {
+//   const notesToArray = new Array(note.content)
+//   console.log(notesToArray)
+//   let noteCreated = note.created_at.split("-");
+//   let year = noteCreated[0];
+//   let month = noteCreated[1];
+//   let date = noteCreated[2].split("T")[0];
+//   const NotesListDiv = document.getElementById("notes-div");
+//   const NoteList = document.getElementById("notes-list");
+//   const calendarDiv = document.getElementById('calendar-container');
+//   const calendarButton = document.getElementById("calendar-btn");
+//   const h5Tag = document.getElementById("today-note");
+//   NotesListDiv.style.display = "block";
+//   calendarDiv.style.display = "none";
+//   calendarButton.disabled = false;
+//   NoteList.innerHTML = `
+//     <h5>${date} - ${month} - ${year} Notes</h5>
+//     <div>${note.content}</div>
+//   `
+// }
 
 function toggleFilterBtn() {
   const plain = document.getElementById("filrer-1");

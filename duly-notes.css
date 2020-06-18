@@ -19,19 +19,22 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%
 }
-
 #card {
-  background-image: url('assets/SF_4.jpg');
-  background-size: 100%;
-  opacity: 0.8;
+  background-size: 120%;
+  /* opacity: 0.7; */
   background-repeat: no-repeat;
-  width: 700px;
-  height: 550px;
+  width: 900px;
+  height: 600px;
   font-size: large;
+  font-weight: 500;
+  display: table;
+  margin: 0 auto;
 }
 
 .date:hover {
+  cursor: pointer;
   background-color:rgb(233, 247, 247);
 }
 
@@ -49,6 +52,21 @@ h1 {
 
 .butn:hover {
   background-color: mintcream;
+}
+
+.filter-btn {
+  background-color: WhiteSmoke;
+  border-radius: 4px;
+  color: DarkSlateGrey;
+  border: 2px solid rgb(209, 209, 209);
+  width: 90px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: large;
+}
+.filter-btn:hover {
+  background-color: rgb(194, 194, 194);
 }
 
 .dropdown {
@@ -163,7 +181,7 @@ h1 {
   bottom: 0;
   height: 3em;
   width: 100%;
-  background-color: teal;
+  background-color: powderblue;
   color: white;
   text-align: center;
   flex: 0 0 50px;
@@ -198,6 +216,12 @@ h1 {
 .title {
   padding-bottom: 50px;
   font-family: 'Pacifico', cursive;
-  color: teal;
+  color: rgb(105, 182, 182);
   text-decoration: underline;
+}
+
+.card-header {
+  text-align: right;
+  color: rgb(59, 105, 103);
+  font-size: 350%;
 }
