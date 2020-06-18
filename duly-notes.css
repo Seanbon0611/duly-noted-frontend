@@ -12,6 +12,17 @@
   margin-bottom: -35px;
 }
 
+ul.notes {
+  background: Linen;
+  padding: 5px;
+}
+
+.notes li {
+  background: MintCream;
+  padding: 8px;
+  margin-left: 35px;
+  color: rgb(70, 70, 70);
+}
 
 .header {
   height: 70px;
@@ -71,4 +82,12 @@ body {
 
 .signin:hover {
   cursor: pointer;
+}
+
+#sunday {
+  color: coral;
+}
+
+#monthAndYear {
+  color: rgb(36, 122, 117);
 }

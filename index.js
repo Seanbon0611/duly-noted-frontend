@@ -48,7 +48,8 @@ displayCalendar(currentMonth, currentYear);
 previousButtonClickListener();
 nextButtonClickListener();
 dropDownListener();
-listenToNewNoteClick()
+listenToNewNoteClick();
+dateClick();
 }
 
 function listenToNewNoteClick() {
@@ -56,6 +57,7 @@ function listenToNewNoteClick() {
   const newNoteDiv = document.getElementById("new-note");
   const calendarDiv = document.getElementById('calendar-container');
   const calendarButton = document.getElementById("calendar-btn");
+  const NotesListDiv = document.getElementById("note-list");
   newNoteBtn.addEventListener('click', (event) => {
     // once clicked disable the button
     event.target.disabled = true;
@@ -65,6 +67,8 @@ function listenToNewNoteClick() {
     calendarDiv.style.display = "none";
     // once clicked undisable calendar button
     calendarButton.disabled = false;
+    // once clicked hide note list
+    NotesListDiv.style.display = "none";
     renderNewNote()
   })
 }
@@ -148,6 +152,18 @@ function signOut() {
   signOut.addEventListener('click', (e) => {
     console.log(e.target)
     handleSignOut()
+    /////////////////////////////////////////////////////////
+    //*** ADDING - HIDE NEW NOTE TEXT AREA WHEN SIGNOUT ***//
+    const newNoteDiv = document.getElementById("new-note");
+    newNoteDiv.style.display = "none";
+    //////*** ADDING - HIDE CALENDAR WHEN SIGNOUT ***///////
+    const calendarDiv = document.getElementById('calendar-container');
+    calendarDiv.style.display = "none";
+    ////////////////////////////////////////////////////////
+    //////*** ADDING - HIDE NOTE LIST WHEN SIGNOUT ***///////
+    const NotesListDiv = document.getElementById("note-list");
+    NotesListDiv.style.display = "none";
+    ////////////////////////////////////////////////////////
   })
 }
 
@@ -206,6 +222,7 @@ function renderCalendarAfterClicked() {
   const calendarDiv = document.getElementById('calendar-container');
   const newNoteBtn = document.querySelector('#note-btn')
   const newNoteDiv = document.getElementById("new-note");
+  const NotesListDiv = document.getElementById("note-list");
   calendarButton.addEventListener("click", function(event) {
       // once clicked disable the button
       event.target.disabled = true;
@@ -215,6 +232,8 @@ function renderCalendarAfterClicked() {
       newNoteBtn.disabled = false;
       // once clicked hide note textarea
       newNoteDiv.style.display = "none";
+      // once clicked hide note list
+      NotesListDiv.style.display = "none";
   });
 }
 
@@ -244,6 +263,10 @@ function displayCalendar(month, year) {
               break;
           } else {
               let cell = document.createElement("td");
+              //////////////////////////////////////////
+              //** ADDING - CLASS ATTRIBUTE TO DATE **//
+              cell.setAttribute("class", "date");
+              /////////////////////////////////////////
               let cellText = document.createTextNode(date);
               if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                   // color today's date
@@ -288,5 +311,29 @@ function dropDownListener() {
       currentMonth = parseInt(monthsSelections.value);
       console.log(currentMonth + 1)
       displayCalendar(currentMonth, currentYear);
+  })
+}
+
+function dateClick() {
+  const NotesListDiv = document.getElementById("note-list");
+  const calendarDiv = document.getElementById('calendar-container');
+  const calendarButton = document.getElementById("calendar-btn");
+  const NoteUl = document.getElementById("note-ul");
+  tbodyTag.addEventListener("click", function(event) {
+      if (event.target.className === "date") {
+          // once date clicked
+          // display note list
+          NotesListDiv.style.display = "block";
+          // hide calendar
+          calendarDiv.style.display = "none";
+          // turn on calendar button
+          calendarButton.disabled = false;
+
+          // list
+          const NoteLi = document.createElement("li")
+          NoteLi.innerText = "dummy note1";
+          NoteUl.append(NoteLi);
+
+      }
   })
 }

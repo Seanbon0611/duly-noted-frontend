@@ -28,13 +28,13 @@
       <table class="table table-bordered table-responsive-sm" id="calendar">
         <thead id="calendar-header">
           <tr>
-            <th>Sun</th>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thu</th>
-            <th>Fri</th>
-            <th>Sat</th>
+            <th id="sunday">Sun</th>
+            <th id="monday">Mon</th>
+            <th id="tuesday">Tue</th>
+            <th id="wednesday">Wed</th>
+            <th id="thursday">Thu</th>
+            <th id="friday">Fri</th>
+            <th id="saturday">Sat</th>
           </tr>
         </thead>
         <tbody id="calendar-body">
@@ -87,6 +87,16 @@
     </form>
   </div>
   <!-- END NEW NOTE -->  
+
+  <!-- NOTE LIST -->
+  <br>
+  <div id="note-list" style="display: none;">
+    <h5>Today Note List</h5>
+    <ul class="notes" id="note-ul">
+      <!-- note li -->
+    </ul>
+  </div>
+  <!-- END NOTE LIST -->
 
   <script src='index.js'></script>
 </body>
