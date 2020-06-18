@@ -430,9 +430,6 @@ function addNoteTopage(note) {
     //// will we check who is logged in?
     //// and no repeat when click again
   })
-<<<<<<< HEAD
-}
-=======
 }
 
 function renderSingleNote(note) {
@@ -455,4 +452,3 @@ function renderSingleNote(note) {
     <div>${note.content}</div>
   `
 }
->>>>>>> 9e608520e0289eeea3822728d6ed8b1f13464c67
