@@ -53,7 +53,7 @@ function listenToNewNoteClick() {
   const newNoteDiv = document.getElementById("new-note");
   const calendarDiv = document.getElementById('calendar-container');
   const calendarButton = document.getElementById("calendar-btn");
-  const NotesListDiv = document.getElementById("note-list");
+  const NotesListDiv = document.getElementById("notes-div");
   newNoteBtn.addEventListener('click', (event) => {
     // once clicked disable the button
     event.target.disabled = true;
@@ -180,7 +180,7 @@ function signOut() {
     calendarDiv.style.display = "none";
     ////////////////////////////////////////////////////////
     //////*** ADDING - HIDE NOTE LIST WHEN SIGNOUT ***///////
-    const NotesListDiv = document.getElementById("note-list");
+    const NotesListDiv = document.getElementById("notes-div");
     NotesListDiv.style.display = "none";
     ////////////////////////////////////////////////////////
   })
@@ -241,7 +241,7 @@ function renderCalendarAfterClicked() {
   const calendarDiv = document.getElementById('calendar-container');
   const newNoteBtn = document.querySelector('#note-btn')
   const newNoteDiv = document.getElementById("new-note");
-  const NotesListDiv = document.getElementById("note-list");
+  const NotesListDiv = document.getElementById("notes-div");
   calendarButton.addEventListener("click", function(event) {
       // once clicked disable the button
       event.target.disabled = true;
@@ -348,16 +348,21 @@ function rederNote(noteData) {
 }
 
 function addNoteTopage(note) {
-  const NotesListDiv = document.getElementById("note-list");
+  const NotesListDiv = document.getElementById("notes-div");
+  const NoteList = document.getElementById("notes-list");
   const calendarDiv = document.getElementById('calendar-container');
   const calendarButton = document.getElementById("calendar-btn");
   const h5Tag = document.getElementById("today-note");
+  // extract day month year from note.created_at
   let noteCreated = note.created_at.split("-");
   let year = noteCreated[0];
   let month = noteCreated[1];
   let date = noteCreated[2].split("T")[0];
   console.log(year, month, date);
+  // clear field
   tbodyTag.addEventListener("click", function(event) {
+      // making sure the calendar date being clicked on is valid (can't click on blank box)
+      // and only clickable when the date has note(s) associated with on the backend
       if (event.target.className === "date" && event.target.innerText == `${date}`) {
           // once date clicked
           // display note list
@@ -372,8 +377,9 @@ function addNoteTopage(note) {
           // note
           const singleNote = document.createElement("div")
           singleNote.innerText = `${note.content}`;
-          NotesListDiv.append(singleNote);
-
+          NoteList.append(singleNote);
       }
+    //// will we check who is logged in?
+    //// and no repeat when click again
   })
 }
