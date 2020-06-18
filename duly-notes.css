@@ -11,23 +11,28 @@ body {
 }
 
 h1 {
-  align-self: auto;
+  text-align: right;
+  color: rgb(59, 105, 103);
+  font-size: 350%;
 }
 
 #calendar-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%
 }
 
 #card {
-  background-image: url('assets/SF_4.jpg');
-  background-size: 100%;
-  opacity: 0.8;
+  background-size: 120%;
+  /* opacity: 0.7; */
   background-repeat: no-repeat;
-  width: 700px;
-  height: 550px;
+  width: 900px;
+  height: 600px;
   font-size: large;
+  font-weight: 500;
+  display: table;
+  margin: 0 auto;
 }
 
 .date:hover {
@@ -44,10 +49,27 @@ h1 {
   height: 35px;
   margin-left: auto;
   margin-right: auto;
+  font-size: large;
 }
 
 .butn:hover {
   background-color: mintcream;
+}
+
+.filter-btn {
+  background-color: WhiteSmoke;
+  border-radius: 4px;
+  color: DarkSlateGrey;
+  border: 2px solid rgb(209, 209, 209);
+  width: 90px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: large;
+}
+
+.filter-btn:hover {
+  background-color: rgb(194, 194, 194);
 }
 
 .dropdown {
@@ -59,6 +81,7 @@ h1 {
   height: 35px;
   margin-left: auto;
   margin-right: auto;
+  font-size: large;
 }
 
 .dropdown:hover {
@@ -135,8 +158,4 @@ html {
 
 #sunday {
   color: rgb(221, 107, 65);
-}
-
-#monthAndYear {
-  color: rgb(36, 122, 117);
 }
