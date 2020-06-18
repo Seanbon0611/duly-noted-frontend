@@ -33,9 +33,9 @@ if (!localStorage.user_id) {
 function renderhomePage() {
   appContainer.innerHTML = `
   <div id="buttons-container">
-    <button type="button" class="btn btn-outline-info" id="signout-btn">SIGN-OUT</button>
-    <button type="button" class="btn btn-outline-info" id="note-btn">NEW NOTE</button>
-    <button type="button" class="btn btn-outline-info" id="calendar-btn">CALENDAR</button>
+    <button type="button" class="btn btn-outline-info options-btn" id="signout-btn">SIGN-OUT</button>
+    <button type="button" class="btn btn-outline-info options-btn" id="note-btn">NEW NOTE</button>
+    <button type="button" class="btn btn-outline-info options-btn" id="calendar-btn">CALENDAR</button>
   </div>
 `
 signOut()
@@ -464,11 +464,22 @@ function addNoteTopage(note) {
 
           // note
           const singleNote = document.createElement("div")
-          singleNote.innerText = `${note.content}`;
-          NoteList.append(singleNote);
+          const editBtn = document.createElement('button')
+
+          singleNote.innerText = `- ${note.content}`;
+          singleNote.setAttribute("class", "note-txt")
+          editBtn.innerText = "Edit"
+          editBtn.setAttribute("class", "btn btn-outline-info")
+          NoteList.append(singleNote, editBtn);
+          listenToEditClick()
       }
-    //// will we check who is logged in?
-    //// and no repeat when click again
+  })
+}
+
+function listenToEditClick() {
+  const editBtn = document.createElement('button')
+  editBtn.addEventListener("click", () => {
+    
   })
 }
 

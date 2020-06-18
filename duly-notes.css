@@ -225,3 +225,21 @@ h1 {
   color: rgb(59, 105, 103);
   font-size: 350%;
 }
+
+#buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.note-txt {
+  text-align: start;
+  font-size: 20px;
+  padding: 20px;
+}
+
+#notes-div {
+  margin: 0 auto;
+  width: 50%;
+}
